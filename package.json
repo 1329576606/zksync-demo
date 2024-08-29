@@ -1,5 +1,11 @@
 {
   "name": "hardhat-project",
+  "scripts": {
+    "build": "hardhat compile",
+    "compile": "hardhat compile",
+    "test-aa-paymaster": "hardhat test-aa-paymaster",
+    "test-eoa-paymaster": "hardhat test-eoa-paymaster"
+  },
   "devDependencies": {
     "@matterlabs/hardhat-zksync": "^1.1.0",
     "@matterlabs/hardhat-zksync-deploy": "^1.5.0",

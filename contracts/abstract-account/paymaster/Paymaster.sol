@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 
 import {IPaymaster, ExecutionResult, PAYMASTER_VALIDATION_SUCCESS_MAGIC} from "@matterlabs/zksync-contracts/l2/system-contracts/interfaces/IPaymaster.sol";
 import {IPaymasterFlow} from "@matterlabs/zksync-contracts/l2/system-contracts/interfaces/IPaymasterFlow.sol";
-import {TransactionHelper, PaymasterTransactionHelper} from "./PaymasterTransactionHelper.sol";
+import {TransactionHelper, PaymasterTransactionHelper, Transaction} from "./PaymasterTransactionHelper.sol";
 import "@matterlabs/zksync-contracts/l2/system-contracts/Constants.sol";
 
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
