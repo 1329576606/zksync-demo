@@ -117,14 +117,20 @@ export const hardhatAccounts = [
 ];
 
 const config: HardhatUserConfig = {
-//     paths: {
-//         deployPaths: ["deploy", "deploy-zksync"], //multiple deployment directories
-//     },
-    defaultNetwork: "abstractTestnet",
+    defaultNetwork: "local",
     networks: {
         sepolia: {
             url: "https://eth-sepolia.g.alchemy.com/v2/FIL_uMHp4ubZpAYa64DbQOTmqhOiqMRm", // The Ethereum Web3 RPC URL (optional).
             zksync: false
+        },
+        local: {
+            url: 'http://127.0.0.1:8011',
+            chainId: 260,
+            zksync: true,
+            accounts: process.env.DEPLOYER_PRIVATE_KEY
+                ? [process.env.DEPLOYER_PRIVATE_KEY]
+                : hardhatAccounts.map((value) => value.privateKey),
+            ethNetwork: "http://localhost:8545"
         },
         abstractTestnet: {
             url: 'https://api.testnet.abs.xyz',
