@@ -3,20 +3,7 @@ import * as zk from "zksync-ethers";
 import {AAFactory__factory, Paymaster__factory} from "../typechain-types";
 import {ethers} from "ethers";
 import {TransactionLike} from "zksync-ethers/src/types";
-import {spawn} from "child_process";
-
-function initLocalNode() {
-    let service = spawn('./era_test_node');
-    service.stdout.on('data', (data) => {
-        console.log(data.toString());
-    });
-    service.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`);
-    });
-    process.on('exit', () => {
-        service.kill();
-    });
-}
+import {initLocalNode} from "./help/era-local-node";
 
 task('deploy-account-factory')
     .setAction(async (_, hre) => {
@@ -215,7 +202,7 @@ task('eoa-send-paymaster')
 
 task('test-aa-paymaster')
     .setAction(async (_, hre) => {
-        initLocalNode();
+        await initLocalNode(hre, {log: false});
         const localNodeWallet = new zk.Wallet(process.env.LOCAL_NODE_PRIVATE_KEY as string, hre.zksyncEthers.providerL2, hre.zksyncEthers.providerL1);
         const wallet = await hre.zksyncEthers.getWallet(0);
         const accountArtifact = await hre.deployer.loadArtifact("Account");
@@ -240,15 +227,11 @@ task('test-aa-paymaster')
 
 task('test-eoa-paymaster')
     .setAction(async (_, hre) => {
-        initLocalNode();
+        await initLocalNode(hre, {log: false});
         const localNodeWallet = new zk.Wallet(process.env.LOCAL_NODE_PRIVATE_KEY as string, hre.zksyncEthers.providerL2, hre.zksyncEthers.providerL1);
         const wallet = await hre.zksyncEthers.getWallet(0);
         const paymasterArtifact = await hre.deployer.loadArtifact("Paymaster");
         paymasterAddress = zk.utils.create2Address(wallet.address, zk.utils.hashBytecode(paymasterArtifact.bytecode), ethers.ZeroHash, ethers.AbiCoder.defaultAbiCoder().encode(['address'], [wallet.address]));
-        await (await localNodeWallet.sendTransaction({
-            to: wallet.address,
-            value: ethers.parseEther("100")
-        })).wait();
         const testEoaWallet = new zk.Wallet(process.env.LOCAL_NODE_PRIVATE_KEY as string, hre.zksyncEthers.providerL2, hre.zksyncEthers.providerL1);
 
         await (await localNodeWallet.sendTransaction({
