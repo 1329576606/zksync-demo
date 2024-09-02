@@ -7,6 +7,9 @@
     "test-eoa-paymaster": "hardhat test-eoa-paymaster"
   },
   "devDependencies": {
+    "@ethereumjs/util": "^9.0.1",
+    "@ethereumjs/vm": "^7.1.0",
+    "@ethereumjs/statemanager": "2.1.0",
     "@matterlabs/hardhat-zksync": "^1.1.0",
     "@matterlabs/hardhat-zksync-deploy": "^1.5.0",
     "@matterlabs/zksync-contracts": "^0.6.1",
