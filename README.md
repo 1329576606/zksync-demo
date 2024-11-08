@@ -69,3 +69,10 @@ https://docs.zksync.io/build/developer-reference/ethereum-differences/contract-d
 ## 6. 开发环境
 * [hardhat](https://docs.zksync.io/build/tooling/hardhat/getting-started)
 * [foundry](https://docs.zksync.io/build/tooling/foundry/overview)
+  * 在开发zksync合约时，需要安装zksync版本的foundry。会覆盖掉原有的foundry。
+    想要让两个版本共存可以用这个命令：
+    ```shell
+    curl -L https://raw.githubusercontent.com/1329576606/foundry-zksync/refs/heads/main/install-foundry-zksync | bash
+    ```
+    运行完之后重启需要终端
+    执行结束之后会安装两个命令：forge-zksync、cast-zksync
