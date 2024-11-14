@@ -3,7 +3,7 @@ import "@nomicfoundation/hardhat-toolbox";
 import "@matterlabs/hardhat-zksync";
 import path from "path";
 import dotenv from 'dotenv';
-import glob from 'glob';
+import {glob} from 'glob';
 
 dotenv.config();
 if (!process.env.SKIP_LOAD) {
